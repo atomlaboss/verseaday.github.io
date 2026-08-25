@@ -1,4 +1,4 @@
-// Daily Verse — forked from Random Quran Verse by Abdulwahab Humayun
+// Random Verse — forked from Random Quran Verse by Abdulwahab Humayun
 
 const TOTAL_SURAHS = 114;
 let totalAyahs;
@@ -64,11 +64,18 @@ async function getRandomAyah() {
 
 function initTheme() {
     const saved = localStorage.getItem('theme') || 'papyrus';
-    document.body.setAttribute('data-theme', saved);
-    document.getElementById('themeSelect').value = saved;
+    applyTheme(saved);
 }
 
 function setTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    applyTheme(theme);
+}
+
+function applyTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+
+    document.querySelectorAll('.themeBtn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick') === `setTheme('${theme}')`);
+    });
 }
