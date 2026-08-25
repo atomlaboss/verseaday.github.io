@@ -8,21 +8,57 @@ html, body {
   height: 100%;
 }
 
-:root {
+/* ---- Theme: Papyrus + Brown (default) ---- */
+:root,
+body[data-theme="papyrus"] {
   --bg-start: #f3ecd8;
   --bg-end: #e6dab8;
   --heading: #7a6a45;
   --verse-color: #2f4a34;
   --translation-color: #5c4a35;
-  --accent: #6b7f4f;
+  --accent: #8b6f47;
   --accent-text: #f3ecd8;
   --btn-border: #8b6f47;
   --footer-color: rgba(60, 45, 25, 0.4);
   --footer-color-hover: rgba(60, 45, 25, 0.7);
   --loader-track: rgba(60, 45, 25, 0.15);
+  --control-color: #5c4a35;
 }
 
-body.dark-theme {
+/* ---- Theme: Green + Dark Green ---- */
+body[data-theme="green"] {
+  --bg-start: #eaf3e3;
+  --bg-end: #cfe4c1;
+  --heading: #3f5c3f;
+  --verse-color: #1f3d24;
+  --translation-color: #345c3a;
+  --accent: #2f4a34;
+  --accent-text: #eaf3e3;
+  --btn-border: #2f4a34;
+  --footer-color: rgba(31, 61, 36, 0.4);
+  --footer-color-hover: rgba(31, 61, 36, 0.7);
+  --loader-track: rgba(31, 61, 36, 0.15);
+  --control-color: #345c3a;
+}
+
+/* ---- Theme: Royal Blue + Gold ---- */
+body[data-theme="royal"] {
+  --bg-start: #1a2a6c;
+  --bg-end: #0f1a4d;
+  --heading: #d4af37;
+  --verse-color: #f4d160;
+  --translation-color: #e8c766;
+  --accent: #d4af37;
+  --accent-text: #0f1a4d;
+  --btn-border: #d4af37;
+  --footer-color: rgba(244, 209, 96, 0.4);
+  --footer-color-hover: rgba(244, 209, 96, 0.7);
+  --loader-track: rgba(244, 209, 96, 0.15);
+  --control-color: #e8c766;
+}
+
+/* ---- Theme: Dark ---- */
+body[data-theme="dark"] {
   --bg-start: #1f2937;
   --bg-end: #111827;
   --heading: #9b8a6a;
@@ -34,6 +70,7 @@ body.dark-theme {
   --footer-color: rgba(245, 241, 232, 0.35);
   --footer-color-hover: rgba(245, 241, 232, 0.65);
   --loader-track: rgba(255, 255, 255, 0.15);
+  --control-color: #cbd5e1;
 }
 
 body {
@@ -97,20 +134,17 @@ h1 {
   color: var(--accent-text);
 }
 
-#themeToggle {
+#themeSelect {
   position: fixed;
   top: 16px;
   right: 16px;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid var(--btn-border);
   background: transparent;
-  border: none;
-  font-size: 20px;
+  color: var(--control-color);
   cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-#themeToggle:hover {
-  opacity: 1;
 }
 
 .loader {
