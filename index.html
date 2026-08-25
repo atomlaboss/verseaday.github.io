@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <select id="themeSelect" onchange="setTheme(this.value)" title="Choose theme">
-        <option value="papyrus">Papyrus</option>
-        <option value="green">Green</option>
-        <option value="royal">Royal Blue</option>
-        <option value="dark">Dark</option>
-    </select>
+    <div id="themeSwitcher">
+        <button class="themeBtn" onclick="setTheme('papyrus')" title="Papyrus">📜</button>
+        <button class="themeBtn" onclick="setTheme('green')" title="Green">🌿</button>
+        <button class="themeBtn" onclick="setTheme('royal')" title="Royal Blue">👑</button>
+        <button class="themeBtn" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
 
     <h1>Random Verse</h1>
 
@@ -29,3 +29,4 @@
         Vibe coded by Adam Labas. Inspired by <a href="https://github.com/Wah-hab/wah-hab.github.io" target="_blank" rel="noopener">Random Quran Verse</a> by Abdulwahab Humayun
     </footer>
 </body>
+</html>
