@@ -1,72 +1,81 @@
-/* Random Quran Verse by Abdulwahab Humayun */
-
-html { 
-  background: url(https://bit.ly/38OXjKF) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.button {
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #9b7c5c;
-  border: none;
-  border-radius: 15px;
+html, body {
+  height: 100%;
 }
 
-.button:hover {
-  background-color: #504030;
-}
-
-.button:active {
-  background-color: #12343b;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-.jumbotron {
-  background-color: #e1b382;
-}
-
-#buttonJumbo {
+body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(160deg, #1f2937, #111827);
+  color: #f5f1e8;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #9b8a6a;
+  font-weight: 500;
+  margin-bottom: 48px;
 }
 
 #verse {
-  border: 1px solid #000000;
-  padding: 10px;
-  font-style: bold;
-  quotes:"\201C" "\201D";
-  font-family: Droid Arabic Naskh, san-serif;
-  font-size: 40px;
-  text-align: center;
+  font-family: 'Amiri Quran', serif;
+  font-size: clamp(26px, 4.5vw, 42px);
+  line-height: 2;
+  max-width: 780px;
+  margin-bottom: 28px;
+  direction: rtl;
+  display: none;
 }
 
 #translation {
+  font-size: 17px;
   font-style: italic;
-  font-family: Lucida;
-  font-size: 30px;
-  text-align: center;
+  color: #cbd5e1;
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 44px;
+  display: none;
+}
+
+#randomBtn {
+  padding: 12px 30px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border: 1px solid #9b8a6a;
+  background: transparent;
+  color: #f5f1e8;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#randomBtn:hover {
+  background: #9b8a6a;
+  color: #111827;
 }
 
 .loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #ad7428;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top: 4px solid #9b8a6a;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  animation: spin 2s linear infinite;
-  margin: 0 auto;
-  z-index: -1;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 24px;
+  display: block;
 }
 
 @keyframes spin {
