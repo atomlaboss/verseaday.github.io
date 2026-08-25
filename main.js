@@ -1,4 +1,4 @@
-// Random Ayah from the Quran
+// Daily Verse — forked from Random Quran Verse by Abdulwahab Humayun
 
 const TOTAL_SURAHS = 114;
 let totalAyahs;
