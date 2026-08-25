@@ -1,4 +1,4 @@
-// Daily Verse — forked from Random Quran Verse by Abdulwahab Humayun
+// Random Ayah from the Quran
 
 const TOTAL_SURAHS = 114;
 let totalAyahs;
@@ -11,6 +11,7 @@ const SURAH_URL = 'https://api.alquran.cloud/v1/surah/';
 let newSurahURL;
 let eng = 'en.sahih';
 
+initTheme();
 getRandomAyah();
 
 async function randomAyah() {
@@ -59,4 +60,19 @@ function showLoader() {
 
 async function getRandomAyah() {
     randomAyah();
+}
+
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.getElementById('themeToggle').textContent = '☀️';
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
 }
