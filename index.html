@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Ayah</title>
+    <title>Daily Verse</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+    <select id="themeSelect" onchange="setTheme(this.value)" title="Choose theme">
+        <option value="papyrus">Papyrus</option>
+        <option value="green">Green</option>
+        <option value="royal">Royal Blue</option>
+        <option value="dark">Dark</option>
+    </select>
 
-    <h1>Random Ayah</h1>
+    <h1>Daily Verse</h1>
 
     <div class="loader" id="loadingCircle"></div>
     <p id="verse"></p>
