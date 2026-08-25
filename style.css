@@ -22,7 +22,6 @@ body[data-theme="papyrus"] {
   --footer-color: rgba(60, 45, 25, 0.4);
   --footer-color-hover: rgba(60, 45, 25, 0.7);
   --loader-track: rgba(60, 45, 25, 0.15);
-  --control-color: #5c4a35;
 }
 
 /* ---- Theme: Green + Dark Green ---- */
@@ -38,7 +37,6 @@ body[data-theme="green"] {
   --footer-color: rgba(31, 61, 36, 0.4);
   --footer-color-hover: rgba(31, 61, 36, 0.7);
   --loader-track: rgba(31, 61, 36, 0.15);
-  --control-color: #345c3a;
 }
 
 /* ---- Theme: Royal Blue + Gold ---- */
@@ -54,7 +52,6 @@ body[data-theme="royal"] {
   --footer-color: rgba(244, 209, 96, 0.4);
   --footer-color-hover: rgba(244, 209, 96, 0.7);
   --loader-track: rgba(244, 209, 96, 0.15);
-  --control-color: #e8c766;
 }
 
 /* ---- Theme: Dark ---- */
@@ -70,7 +67,6 @@ body[data-theme="dark"] {
   --footer-color: rgba(245, 241, 232, 0.35);
   --footer-color-hover: rgba(245, 241, 232, 0.65);
   --loader-track: rgba(255, 255, 255, 0.15);
-  --control-color: #cbd5e1;
 }
 
 body {
@@ -134,17 +130,32 @@ h1 {
   color: var(--accent-text);
 }
 
-#themeSelect {
+#themeSwitcher {
   position: fixed;
   top: 16px;
   right: 16px;
-  padding: 6px 10px;
-  font-size: 13px;
-  border-radius: 8px;
-  border: 1px solid var(--btn-border);
+  display: flex;
+  gap: 6px;
+}
+
+.themeBtn {
   background: transparent;
-  color: var(--control-color);
+  border: none;
+  font-size: 20px;
   cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+  padding: 4px;
+}
+
+.themeBtn:hover {
+  opacity: 0.85;
+}
+
+.themeBtn.active {
+  opacity: 1;
+  transform: scale(1.15);
 }
 
 .loader {
