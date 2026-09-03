@@ -22,6 +22,10 @@ body[data-theme="papyrus"] {
   --footer-color: rgba(60, 45, 25, 0.4);
   --footer-color-hover: rgba(60, 45, 25, 0.7);
   --loader-track: rgba(60, 45, 25, 0.15);
+  --tile-bg: rgba(139, 111, 71, 0.08);
+  --tile-bg-hover: rgba(139, 111, 71, 0.16);
+  --panel-bg: #fbf7ec;
+  --input-border: rgba(90, 70, 45, 0.25);
 }
 
 /* ---- Theme: Green + Dark Green ---- */
@@ -37,21 +41,29 @@ body[data-theme="green"] {
   --footer-color: rgba(31, 61, 36, 0.4);
   --footer-color-hover: rgba(31, 61, 36, 0.7);
   --loader-track: rgba(31, 61, 36, 0.15);
+  --tile-bg: rgba(47, 74, 52, 0.08);
+  --tile-bg-hover: rgba(47, 74, 52, 0.16);
+  --panel-bg: #f3f8ee;
+  --input-border: rgba(47, 74, 52, 0.25);
 }
 
-/* ---- Theme: Royal Blue + Gold ---- */
-body[data-theme="royal"] {
-  --bg-start: #1a2a6c;
-  --bg-end: #0f1a4d;
-  --heading: #d4af37;
-  --verse-color: #f4d160;
-  --translation-color: #e8c766;
-  --accent: #d4af37;
-  --accent-text: #0f1a4d;
-  --btn-border: #d4af37;
-  --footer-color: rgba(244, 209, 96, 0.4);
-  --footer-color-hover: rgba(244, 209, 96, 0.7);
-  --loader-track: rgba(244, 209, 96, 0.15);
+/* ---- Theme: Sky (light blue + navy) ---- */
+body[data-theme="sky"] {
+  --bg-start: #eaf4fb;
+  --bg-end: #cfe6f5;
+  --heading: #4a72a0;
+  --verse-color: #16324f;
+  --translation-color: #1b3a5c;
+  --accent: #1b3a5c;
+  --accent-text: #eaf4fb;
+  --btn-border: #1b3a5c;
+  --footer-color: rgba(27, 58, 92, 0.4);
+  --footer-color-hover: rgba(27, 58, 92, 0.7);
+  --loader-track: rgba(27, 58, 92, 0.15);
+  --tile-bg: rgba(27, 58, 92, 0.08);
+  --tile-bg-hover: rgba(27, 58, 92, 0.16);
+  --panel-bg: #f4f9fd;
+  --input-border: rgba(27, 58, 92, 0.25);
 }
 
 /* ---- Theme: Dark ---- */
@@ -67,6 +79,10 @@ body[data-theme="dark"] {
   --footer-color: rgba(245, 241, 232, 0.35);
   --footer-color-hover: rgba(245, 241, 232, 0.65);
   --loader-track: rgba(255, 255, 255, 0.15);
+  --tile-bg: rgba(155, 138, 106, 0.1);
+  --tile-bg-hover: rgba(155, 138, 106, 0.2);
+  --panel-bg: #171f2b;
+  --input-border: rgba(155, 138, 106, 0.3);
 }
 
 body {
@@ -123,6 +139,7 @@ h1 {
   border-radius: 30px;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
+  margin-bottom: 50px;
 }
 
 #randomBtn:hover {
@@ -172,6 +189,148 @@ h1 {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* ---- Shortcuts row ---- */
+#shortcutsWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 60px;
+}
+
+#shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  max-width: 640px;
+}
+
+.shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--translation-color);
+  background: var(--tile-bg);
+  padding: 14px 18px;
+  border-radius: 16px;
+  min-width: 78px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.shortcut:hover {
+  background: var(--tile-bg-hover);
+  transform: translateY(-2px);
+}
+
+.shortcut img {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.shortcut .fallback {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shortcut .label {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+#editToggle {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  color: var(--heading);
+  cursor: pointer;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+#editToggle:hover {
+  opacity: 1;
+}
+
+/* ---- Edit panel ---- */
+#editPanel {
+  display: none;
+  background: var(--panel-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 14px;
+  max-width: 420px;
+  width: 100%;
+}
+
+#editPanel.open {
+  display: block;
+}
+
+.editRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.editRow input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background: transparent;
+  color: var(--translation-color);
+  font-size: 13px;
+}
+
+.editRow input::placeholder {
+  color: var(--translation-color);
+  opacity: 0.45;
+}
+
+.editRow input.name-input {
+  flex: 0 0 30%;
+}
+
+#editActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+#editActions button {
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: 20px;
+  border: 1px solid var(--btn-border);
+  background: transparent;
+  color: var(--translation-color);
+  cursor: pointer;
+}
+
+#editActions button:hover {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+#editActions .reset {
+  opacity: 0.6;
+  border: none;
 }
 
 footer {
