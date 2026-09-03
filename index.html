@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab</title>
-     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +12,7 @@
     <div id="themeSwitcher">
         <button class="themeBtn" onclick="setTheme('papyrus')" title="Papyrus">📜</button>
         <button class="themeBtn" onclick="setTheme('green')" title="Green">🌿</button>
-        <button class="themeBtn" onclick="setTheme('royal')" title="Royal Blue">👑</button>
+        <button class="themeBtn" onclick="setTheme('sky')" title="Sky">🌊</button>
         <button class="themeBtn" onclick="setTheme('dark')" title="Dark">🌙</button>
     </div>
 
@@ -23,6 +23,19 @@
     <p id="translation"></p>
 
     <button id="randomBtn" onclick="getRandomAyah()">New Verse</button>
+
+    <div id="shortcutsWrap">
+        <div id="shortcuts"></div>
+        <button id="editToggle" onclick="toggleEdit()">✎ Edit shortcuts</button>
+
+        <div id="editPanel">
+            <div id="editRows"></div>
+            <div id="editActions">
+                <button class="reset" onclick="resetShortcuts()">Reset to defaults</button>
+                <button onclick="saveShortcuts()">Save</button>
+            </div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 
