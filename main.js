@@ -13,11 +13,13 @@ let eng = 'en.sahih';
 
 initTheme();
 getRandomAyah();
+renderShortcuts();
+
+// ---------------- Verse logic ----------------
 
 async function randomAyah() {
     showLoader();
 
-    // pick a whole number from 1 to 6236, each equally likely
     ayahGlobalNumber = Math.floor(Math.random() * TOTAL_AYAHS) + 1;
 
     const response = await fetch(AYAH_URL + ayahGlobalNumber + '/' + arabicEdition);
@@ -60,6 +62,8 @@ async function getRandomAyah() {
     randomAyah();
 }
 
+// ---------------- Theme logic ----------------
+
 function initTheme() {
     const saved = localStorage.getItem('theme') || 'papyrus';
     applyTheme(saved);
@@ -76,4 +80,110 @@ function applyTheme(theme) {
     document.querySelectorAll('.themeBtn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('onclick') === `setTheme('${theme}')`);
     });
+}
+
+// ---------------- Shortcuts logic ----------------
+
+const defaultShortcuts = [
+    { name: 'YouTube', url: 'https://youtube.com' },
+    { name: 'Google',  url: 'https://google.com' },
+    { name: 'Drive',   url: 'https://drive.google.com' },
+    { name: 'Gmail',   url: 'https://mail.google.com' },
+    { name: 'GitHub',  url: 'https://github.com' }
+];
+
+function getShortcuts() {
+    try {
+        const saved = localStorage.getItem('shortcuts');
+        if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return defaultShortcuts;
+}
+
+function extractDomain(url) {
+    try {
+        return new URL(url).hostname;
+    } catch (e) {
+        return url;
+    }
+}
+
+function renderShortcuts() {
+    const shortcuts = getShortcuts();
+    const wrap = document.getElementById('shortcuts');
+    wrap.innerHTML = '';
+
+    shortcuts.forEach(sc => {
+        if (!sc.name || !sc.url) return;
+
+        const a = document.createElement('a');
+        a.className = 'shortcut';
+        a.href = sc.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+
+        const domain = extractDomain(sc.url);
+        const img = document.createElement('img');
+        img.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        img.alt = '';
+        img.onerror = function () {
+            const fb = document.createElement('div');
+            fb.className = 'fallback';
+            fb.textContent = sc.name.charAt(0).toUpperCase();
+            this.replaceWith(fb);
+        };
+
+        const label = document.createElement('span');
+        label.className = 'label';
+        label.textContent = sc.name;
+
+        a.appendChild(img);
+        a.appendChild(label);
+        wrap.appendChild(a);
+    });
+}
+
+function toggleEdit() {
+    const panel = document.getElementById('editPanel');
+    const isOpen = panel.classList.toggle('open');
+    if (isOpen) buildEditRows();
+}
+
+function buildEditRows() {
+    const shortcuts = getShortcuts();
+    const rowsWrap = document.getElementById('editRows');
+    rowsWrap.innerHTML = '';
+
+    for (let i = 0; i < 5; i++) {
+        const sc = shortcuts[i] || { name: '', url: '' };
+        const row = document.createElement('div');
+        row.className = 'editRow';
+        row.innerHTML = `
+            <input class="name-input" data-i="${i}" data-field="name" placeholder="Name" value="${sc.name || ''}">
+            <input data-i="${i}" data-field="url" placeholder="https://..." value="${sc.url || ''}">
+        `;
+        rowsWrap.appendChild(row);
+    }
+}
+
+function saveShortcuts() {
+    const inputs = document.querySelectorAll('#editRows input');
+    const rows = {};
+    inputs.forEach(inp => {
+        const i = inp.getAttribute('data-i');
+        const field = inp.getAttribute('data-field');
+        rows[i] = rows[i] || {};
+        rows[i][field] = inp.value.trim();
+    });
+
+    const newShortcuts = Object.values(rows).filter(r => r.name && r.url);
+    localStorage.setItem('shortcuts', JSON.stringify(newShortcuts));
+    renderShortcuts();
+    document.getElementById('editPanel').classList.remove('open');
+}
+
+function resetShortcuts() {
+    localStorage.removeItem('shortcuts');
+    renderShortcuts();
+    buildEditRows();
 }
