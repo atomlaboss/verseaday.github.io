@@ -9,8 +9,8 @@ html, body {
 }
 
 @font-face {
-  font-family: 'UthmanicHafs';
-  src: url('fonts/UthmanicHafs.woff2') format('woff2');
+  font-family: 'hafs.18';
+  src: url('fonts/hafs.18.woff2') format('woff2');
   font-display: swap;
 }
 
