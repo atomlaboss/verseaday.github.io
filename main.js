@@ -111,8 +111,6 @@ function renderShortcuts() {
         const a = document.createElement('a');
         a.className = 'shortcut';
         a.href = sc.url;
-        a.target = '_blank';
-        a.rel = 'noopener';
 
         const domain = extractDomain(sc.url);
         const img = document.createElement('img');
