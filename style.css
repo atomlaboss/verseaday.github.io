@@ -8,13 +8,19 @@ html, body {
   height: 100%;
 }
 
+@font-face {
+  font-family: 'UthmanicHafs';
+  src: url('fonts/UthmanicHafs.woff2') format('woff2');
+  font-display: swap;
+}
+
 /* ---- Theme: Papyrus + Brown (default) ---- */
 :root,
 body[data-theme="papyrus"] {
   --bg-start: #f3ecd8;
   --bg-end: #e6dab8;
   --heading: #7a6a45;
-  --verse-color: #2f4a34;
+  --verse-color: #4a3320;
   --translation-color: #5c4a35;
   --accent: #8b6f47;
   --accent-text: #f3ecd8;
@@ -109,7 +115,7 @@ h1 {
 }
 
 #verse {
-  font-family: 'Amiri Quran', serif;
+  font-family: 'UthmanicHafs', 'Amiri Quran', serif;
   font-size: clamp(26px, 4.5vw, 42px);
   line-height: 2;
   max-width: 780px;
@@ -125,26 +131,8 @@ h1 {
   color: var(--translation-color);
   max-width: 600px;
   line-height: 1.7;
-  margin-bottom: 44px;
-  display: none;
-}
-
-#randomBtn {
-  padding: 12px 30px;
-  font-size: 15px;
-  letter-spacing: 0.5px;
-  border: 1px solid var(--btn-border);
-  background: transparent;
-  color: var(--translation-color);
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
   margin-bottom: 50px;
-}
-
-#randomBtn:hover {
-  background: var(--accent);
-  color: var(--accent-text);
+  display: none;
 }
 
 #themeSwitcher {
@@ -216,6 +204,7 @@ h1 {
   text-decoration: none;
   color: var(--translation-color);
   background: var(--tile-bg);
+  border: 1px solid var(--btn-border);
   padding: 14px 18px;
   border-radius: 16px;
   min-width: 78px;
@@ -331,6 +320,14 @@ h1 {
 #editActions .reset {
   opacity: 0.6;
   border: none;
+}
+
+#lastUpdated {
+  position: fixed;
+  bottom: 12px;
+  left: 16px;
+  font-size: 11px;
+  color: var(--footer-color);
 }
 
 footer {
