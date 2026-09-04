@@ -1,7 +1,7 @@
 // Random Verse — forked from Random Quran Verse by Abdulwahab Humayun
 // Arabic text + translation sourced from risan/quran-json (Noble Qur'an Encyclopedia + Saheeh International via Tanzil.net)
 
-const TOTAL_AYAHS = 6236; // total verses in the whole Quran
+const TOTAL_AYAHS = 6236; // total verses in the whole Quran.
 let ayahGlobalNumber;
 let surahNumber;
 let ayahNumber;
