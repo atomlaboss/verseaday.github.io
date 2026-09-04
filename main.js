@@ -1,4 +1,5 @@
 // Random Verse — forked from Random Quran Verse by Abdulwahab Humayun
+// Arabic text + translation sourced from risan/quran-json (Noble Qur'an Encyclopedia + Saheeh International via Tanzil.net)
 
 const TOTAL_AYAHS = 6236; // total verses in the whole Quran
 let ayahGlobalNumber;
@@ -7,9 +8,7 @@ let ayahNumber;
 let ayah;
 let translatedAyah;
 
-const AYAH_URL = 'https://api.alquran.cloud/v1/ayah/';
-let arabicEdition = 'quran-uthmani';
-let eng = 'en.sahih';
+const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/main/dist/verses/';
 
 initTheme();
 getRandomAyah();
@@ -22,24 +21,16 @@ async function randomAyah() {
 
     ayahGlobalNumber = Math.floor(Math.random() * TOTAL_AYAHS) + 1;
 
-    const response = await fetch(AYAH_URL + ayahGlobalNumber + '/' + arabicEdition);
-    const chapterJSON = await response.json();
+    const response = await fetch(VERSE_URL + ayahGlobalNumber + '.json');
+    const verseJSON = await response.json();
 
-    ayah = chapterJSON.data.text;
-    surahNumber = chapterJSON.data.surah.number;
-    ayahNumber = chapterJSON.data.numberInSurah;
+    ayah = verseJSON.text;
+    translatedAyah = verseJSON.translations.en;
+    surahNumber = verseJSON.chapter.id;
+    ayahNumber = verseJSON.number;
 
-    translateAyah();
-    return Promise.resolve('Getting the ayah works!');
-}
-
-async function translateAyah() {
-    const response = await fetch(AYAH_URL + ayahGlobalNumber + '/' + eng);
-    const chapterJSON2 = await response.json();
-
-    translatedAyah = chapterJSON2.data.text;
     printToHTML();
-    return Promise.resolve('Getting the translation works!');
+    return Promise.resolve('Getting the ayah works!');
 }
 
 function printToHTML() {
