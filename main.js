@@ -188,10 +188,12 @@ async function showLastUpdated() {
         const commits = await response.json();
         const date = new Date(commits[0].commit.committer.date);
 
-        const formatted = date.toLocaleDateString('en-US', {
+        const formatted = date.toLocaleString('en-US', {
             year: 'numeric',
             month: 'short',
-            day: 'numeric'
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
         });
 
         document.getElementById('lastUpdated').textContent = 'Last updated: ' + formatted;
