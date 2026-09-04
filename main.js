@@ -1,7 +1,7 @@
 // Random Verse — forked from Random Quran Verse by Abdulwahab Humayun
 // Arabic text + translation sourced from risan/quran-json (Noble Qur'an Encyclopedia + Saheeh International via Tanzil.net)
 
-const TOTAL_AYAHS = 6236; // total verses in the whole Quran.
+const TOTAL_AYAHS = 6236; // total verses in the whole Quran
 let ayahGlobalNumber;
 let surahNumber;
 let ayahNumber;
@@ -13,6 +13,7 @@ const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/main/dist/
 initTheme();
 getRandomAyah();
 renderShortcuts();
+showLastUpdated();
 
 // ---------------- Verse logic ----------------
 
@@ -177,4 +178,24 @@ function resetShortcuts() {
     localStorage.removeItem('shortcuts');
     renderShortcuts();
     buildEditRows();
+}
+
+// ---------------- Last updated ----------------
+
+async function showLastUpdated() {
+    try {
+        const response = await fetch('https://api.github.com/repos/atomlaboss/verseaday.github.io/commits?per_page=1');
+        const commits = await response.json();
+        const date = new Date(commits[0].commit.committer.date);
+
+        const formatted = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        document.getElementById('lastUpdated').textContent = 'Last updated: ' + formatted;
+    } catch (e) {
+        // fails silently if GitHub's API is unreachable or rate-limited
+    }
 }
