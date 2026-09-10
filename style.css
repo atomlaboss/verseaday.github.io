@@ -256,20 +256,20 @@ h1 {
 
 /* ---- New Verse button: quiet, secondary, sits below Edit shortcuts ---- */
 #randomBtn {
-  background: transparent;
-  border: none;
+  background: var(--tile-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
   font-size: 12px;
   letter-spacing: 0.3px;
   color: var(--translation-color);
-  opacity: 0.55;
+  padding: 8px 16px;
   cursor: pointer;
-  padding: 2px 4px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 #randomBtn:hover {
-  opacity: 0.9;
+  background: var(--tile-bg-hover);
+  transform: translateY(-2px);
 }
 
 /* ---- Edit panel ---- */
