@@ -113,9 +113,11 @@ function renderShortcuts() {
         a.className = 'shortcut';
         a.href = sc.url;
 
-        const domain = extractDomain(sc.url);
+        // Use the custom icon if one was set; otherwise fall back to auto-fetched favicon
+        const iconSrc = sc.icon ? sc.icon : `https://www.google.com/s2/favicons?domain=${extractDomain(sc.url)}&sz=128`;
+
         const img = document.createElement('img');
-        img.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        img.src = iconSrc;
         img.alt = '';
         img.onerror = function () {
             const fb = document.createElement('div');
@@ -146,12 +148,15 @@ function buildEditRows() {
     rowsWrap.innerHTML = '';
 
     for (let i = 0; i < MAX_SHORTCUTS; i++) {
-        const sc = shortcuts[i] || { name: '', url: '' };
+        const sc = shortcuts[i] || { name: '', url: '', icon: '' };
         const row = document.createElement('div');
-        row.className = 'editRow';
+        row.className = 'editGroup';
         row.innerHTML = `
-            <input class="name-input" data-i="${i}" data-field="name" placeholder="Name" value="${sc.name || ''}">
-            <input data-i="${i}" data-field="url" placeholder="https://..." value="${sc.url || ''}">
+            <div class="editRow">
+                <input class="name-input" data-i="${i}" data-field="name" placeholder="Name" value="${sc.name || ''}">
+                <input data-i="${i}" data-field="url" placeholder="https://..." value="${sc.url || ''}">
+            </div>
+            <input class="icon-input" data-i="${i}" data-field="icon" placeholder="Icon URL (optional)" value="${sc.icon || ''}">
         `;
         rowsWrap.appendChild(row);
     }
