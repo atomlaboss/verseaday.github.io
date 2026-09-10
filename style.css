@@ -254,6 +254,24 @@ h1 {
   opacity: 1;
 }
 
+/* ---- New Verse button: quiet, secondary, sits below Edit shortcuts ---- */
+#randomBtn {
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: var(--translation-color);
+  opacity: 0.55;
+  cursor: pointer;
+  padding: 2px 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#randomBtn:hover {
+  opacity: 0.9;
+}
+
 /* ---- Edit panel ---- */
 #editPanel {
   display: none;
@@ -274,11 +292,34 @@ h1 {
 
 .editGroup {
   margin-bottom: 14px;
+  background: var(--tile-bg);
+  border-radius: 10px;
+  padding: 8px;
+  touch-action: none;
+}
+
+.editGroup.dragging {
+  opacity: 0.4;
 }
 
 .editRow {
   display: flex;
+  align-items: center;
   gap: 8px;
+}
+
+.dragHandle {
+  flex: 0 0 auto;
+  font-size: 16px;
+  opacity: 0.5;
+  cursor: grab;
+  padding: 0 4px;
+  user-select: none;
+  color: var(--translation-color);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
 }
 
 .editRow input {
@@ -298,12 +339,12 @@ h1 {
 }
 
 .editRow input.name-input {
-  flex: 0 0 30%;
+  flex: 0 0 26%;
 }
 
 .icon-input {
   width: 100%;
-  margin-top: 4px;
+  margin-top: 6px;
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid var(--input-border);
