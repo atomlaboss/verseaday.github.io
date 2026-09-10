@@ -272,10 +272,13 @@ h1 {
   display: block;
 }
 
+.editGroup {
+  margin-bottom: 14px;
+}
+
 .editRow {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
 }
 
 .editRow input {
@@ -296,6 +299,22 @@ h1 {
 
 .editRow input.name-input {
   flex: 0 0 30%;
+}
+
+.icon-input {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background: transparent;
+  color: var(--translation-color);
+  font-size: 13px;
+}
+
+.icon-input::placeholder {
+  color: var(--translation-color);
+  opacity: 0.45;
 }
 
 #editActions {
