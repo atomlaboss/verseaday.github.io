@@ -9,6 +9,7 @@ let ayah;
 let translatedAyah;
 
 const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/main/dist/verses/';
+const MAX_SHORTCUTS = 10;
 
 initTheme();
 getRandomAyah();
@@ -144,7 +145,7 @@ function buildEditRows() {
     const rowsWrap = document.getElementById('editRows');
     rowsWrap.innerHTML = '';
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < MAX_SHORTCUTS; i++) {
         const sc = shortcuts[i] || { name: '', url: '' };
         const row = document.createElement('div');
         row.className = 'editRow';
