@@ -113,7 +113,6 @@ function renderShortcuts() {
         a.className = 'shortcut';
         a.href = sc.url;
 
-        // Use the custom icon if one was set; otherwise fall back to auto-fetched favicon
         const iconSrc = sc.icon ? sc.icon : `https://www.google.com/s2/favicons?domain=${extractDomain(sc.url)}&sz=128`;
 
         const img = document.createElement('img');
@@ -153,6 +152,7 @@ function buildEditRows() {
         row.className = 'editGroup';
         row.innerHTML = `
             <div class="editRow">
+                <span class="dragHandle">☰</span>
                 <input class="name-input" data-i="${i}" data-field="name" placeholder="Name" value="${sc.name || ''}">
                 <input data-i="${i}" data-field="url" placeholder="https://..." value="${sc.url || ''}">
             </div>
@@ -160,6 +160,8 @@ function buildEditRows() {
         `;
         rowsWrap.appendChild(row);
     }
+
+    initDragHandles();
 }
 
 function saveShortcuts() {
@@ -172,7 +174,21 @@ function saveShortcuts() {
         rows[i][field] = inp.value.trim();
     });
 
-    const newShortcuts = Object.values(rows).filter(r => r.name && r.url);
+    // Read rows in the order they now appear in the DOM (post-reorder), not object key order
+    const orderedGroups = document.querySelectorAll('#editRows .editGroup');
+    const newShortcuts = [];
+    orderedGroups.forEach(group => {
+        const nameInput = group.querySelector('[data-field="name"]');
+        const urlInput = group.querySelector('[data-field="url"]');
+        const iconInput = group.querySelector('[data-field="icon"]');
+        const name = nameInput.value.trim();
+        const url = urlInput.value.trim();
+        const icon = iconInput.value.trim();
+        if (name && url) {
+            newShortcuts.push({ name, url, icon });
+        }
+    });
+
     localStorage.setItem('shortcuts', JSON.stringify(newShortcuts));
     renderShortcuts();
     document.getElementById('editPanel').classList.remove('open');
@@ -182,6 +198,55 @@ function resetShortcuts() {
     localStorage.removeItem('shortcuts');
     renderShortcuts();
     buildEditRows();
+}
+
+// ---------------- Drag to reorder (pointer events: works for mouse AND touch) ----------------
+
+let dragEl = null;
+
+function initDragHandles() {
+    document.querySelectorAll('.dragHandle').forEach(handle => {
+        handle.addEventListener('pointerdown', onDragStart);
+    });
+}
+
+function onDragStart(e) {
+    dragEl = e.target.closest('.editGroup');
+    if (!dragEl) return;
+
+    dragEl.setPointerCapture(e.pointerId);
+    dragEl.classList.add('dragging');
+
+    document.addEventListener('pointermove', onDragMove);
+    document.addEventListener('pointerup', onDragEnd);
+}
+
+function onDragMove(e) {
+    if (!dragEl) return;
+
+    const rowsWrap = document.getElementById('editRows');
+    const siblings = [...rowsWrap.querySelectorAll('.editGroup:not(.dragging)')];
+
+    const afterElement = siblings.find(sib => {
+        const box = sib.getBoundingClientRect();
+        return e.clientY < box.top + box.height / 2;
+    });
+
+    if (afterElement) {
+        rowsWrap.insertBefore(dragEl, afterElement);
+    } else {
+        rowsWrap.appendChild(dragEl);
+    }
+}
+
+function onDragEnd(e) {
+    if (!dragEl) return;
+
+    dragEl.classList.remove('dragging');
+    dragEl.releasePointerCapture(e.pointerId);
+    document.removeEventListener('pointermove', onDragMove);
+    document.removeEventListener('pointerup', onDragEnd);
+    dragEl = null;
 }
 
 // ---------------- Last updated ----------------
