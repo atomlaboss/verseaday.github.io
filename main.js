@@ -8,7 +8,9 @@ let ayahNumber;
 let ayah;
 let translatedAyah;
 
-const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/main/dist/verses/';
+// Pinned to the v3.1.2 tag: the repo's main branch was restructured (Oct 2026) and dist/ was removed.
+// Files at a tag never change, so this URL won't break again.
+const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/v3.1.2/dist/verses/';
 const MAX_SHORTCUTS = 10;
 
 initTheme();
@@ -23,16 +25,29 @@ async function randomAyah() {
 
     ayahGlobalNumber = Math.floor(Math.random() * TOTAL_AYAHS) + 1;
 
-    const response = await fetch(VERSE_URL + ayahGlobalNumber + '.json');
-    const verseJSON = await response.json();
+    try {
+        const response = await fetch(VERSE_URL + ayahGlobalNumber + '.json');
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const verseJSON = await response.json();
 
-    ayah = verseJSON.text;
-    translatedAyah = verseJSON.translations.en;
-    surahNumber = verseJSON.chapter.id;
-    ayahNumber = verseJSON.number;
+        ayah = verseJSON.text;
+        translatedAyah = verseJSON.translations.en;
+        surahNumber = verseJSON.chapter.id;
+        ayahNumber = verseJSON.number;
 
-    printToHTML();
-    return Promise.resolve('Getting the ayah works!');
+        printToHTML();
+    } catch (e) {
+        showError();
+        console.error('Could not load verse ' + ayahGlobalNumber + ':', e);
+    }
+}
+
+function showError() {
+    document.getElementById('loadingCircle').style.display = 'none';
+    document.getElementById('verse').style.display = 'none';
+    const t = document.getElementById('translation');
+    t.style.display = 'block';
+    t.textContent = "Couldn't load a verse. Press New Verse to try again.";
 }
 
 function printToHTML() {
