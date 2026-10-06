@@ -11,7 +11,7 @@ let translatedAyah;
 // Pinned to the v3.1.2 tag: the repo's main branch was restructured (Oct 2026) and dist/ was removed.
 // Files at a tag never change, so this URL won't break again.
 const VERSE_URL = 'https://raw.githubusercontent.com/risan/quran-json/v3.1.2/dist/verses/';
-const MAX_SHORTCUTS = 10;
+const MAX_SHORTCUTS = 18;
 
 initTheme();
 getRandomAyah();
